@@ -30,7 +30,7 @@ RSS-feeds ──> verzamelen ──> ontdubbelen ──> scoren ──> samenste
 | `.github/workflows/check-feeds.yml` | Controleert of alle feeds nog werken. |
 
 **Kosten.** Het scoren van ~300 koppen met Claude Haiku kost minder dan een cent. Het
-samenstellen met Claude Sonnet kost naar schatting 5 à 10 cent per dag, dus **ongeveer
+samenstellen met Claude Sonnet kost naar schatting 5 à 15 cent per dag, dus **ongeveer
 €2-4 per maand**. Wil je betere teksten, zet dan in `settings.yaml` `compose: claude-opus-5-5`
 (ongeveer twee keer zo duur). Harde limieten per run staan onder `limits:`.
 

@@ -6,6 +6,7 @@
     python -m newsdigest                  # scheduled run (used by GitHub Actions)
 """
 import argparse
+import os
 import sys
 import time
 import traceback
@@ -64,6 +65,9 @@ def run(mode: str) -> int:
     state = load_state()
 
     if mode == "scheduled":
+        if not os.environ.get("ANTHROPIC_API_KEY"):
+            print("Skipping: ANTHROPIC_API_KEY is not set yet (see README).")
+            return 0
         reason = check_schedule(settings, state, now)
         if reason:
             print(f"Skipping: {reason}.")
