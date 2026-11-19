@@ -1,0 +1,92 @@
+# RSS feeds. Fields:
+#   name:      shown in the digest
+#   url:       the RSS/Atom feed
+#   category:  hint for the selection model (free text)
+#   paywall:   true = articles are usually behind a paywall (shown as "(betaalmuur)")
+#   max_items: optional, max headlines taken from this feed per run (default 25)
+# Run the "Check feeds" workflow (or: python -m newsdigest.check_feeds) after editing.
+
+sources:
+  # --- Nederland algemeen ---
+  - {name: NOS, url: "https://feeds.nos.nl/nosnieuwsalgemeen", category: nederland, paywall: false}
+  - {name: NOS Politiek, url: "https://feeds.nos.nl/nosnieuwspolitiek", category: nederland-politiek, paywall: false}
+  - {name: NOS Buitenland, url: "https://feeds.nos.nl/nosnieuwsbuitenland", category: wereld, paywall: false}
+  - {name: NOS Economie, url: "https://feeds.nos.nl/nosnieuwseconomie", category: economie, paywall: false}
+  - {name: NOS Tech, url: "https://feeds.nos.nl/nosnieuwstech", category: tech, paywall: false}
+  - {name: Nieuwsuur, url: "https://feeds.nos.nl/nieuwsuuralgemeen", category: achtergrond, paywall: false}
+  - {name: NRC, url: "https://www.nrc.nl/rss/", category: nederland, paywall: true}
+  - {name: de Volkskrant, url: "https://www.volkskrant.nl/voorpagina/rss.xml", category: nederland, paywall: true}
+  - {name: Trouw, url: "https://www.trouw.nl/voorpagina/rss.xml", category: nederland, paywall: true}
+  - {name: Het Parool, url: "https://www.parool.nl/voorpagina/rss.xml", category: nederland, paywall: true}
+  - {name: NU.nl, url: "https://www.nu.nl/rss/Algemeen", category: nederland, paywall: false}
+  - {name: De Telegraaf, url: "https://www.telegraaf.nl/rss", category: nederland-rechts, paywall: true}
+  - {name: EW, url: "https://www.ewmagazine.nl/feed/", category: opinie-rechts, paywall: true}
+  - {name: Follow the Money, url: "https://www.ftm.nl/rss", category: onderzoeksjournalistiek, paywall: true}
+  - {name: De Correspondent, url: "https://decorrespondent.nl/feed", category: achtergrond-progressief, paywall: false}
+  - {name: ESB, url: "https://esb.nu/feed/", category: economie-analyse, paywall: true}
+
+  # --- Nederlandse data en onderzoek ---
+  - {name: CBS, url: "https://www.cbs.nl/nl-nl/service/rss/nieuws", category: data-onderzoek, paywall: false}
+  - {name: CPB, url: "https://www.cpb.nl/rss.xml", category: data-onderzoek, paywall: false}
+  - {name: PBL, url: "https://www.pbl.nl/rss.xml", category: data-onderzoek, paywall: false}
+  - {name: SCP, url: "https://www.scp.nl/rss", category: data-onderzoek, paywall: false}
+  - {name: RIVM, url: "https://www.rivm.nl/nieuws/rss.xml", category: gezondheid-onderzoek, paywall: false}
+
+  # --- Regionaal (alleen grotere gebeurtenissen) ---
+  - {name: Omroep West, url: "https://www.omroepwest.nl/rss/index.xml", category: regio-den-haag, paywall: false, max_items: 15}
+  - {name: RTV Noord, url: "https://www.rtvnoord.nl/rss/index.xml", category: regio-groningen, paywall: false, max_items: 15}
+
+  # --- Internationaal ---
+  - {name: BBC News, url: "https://feeds.bbci.co.uk/news/world/rss.xml", category: wereld, paywall: false}
+  - {name: The Guardian, url: "https://www.theguardian.com/world/rss", category: wereld, paywall: false}
+  - {name: Al Jazeera, url: "https://www.aljazeera.com/xml/rss/all.xml", category: wereld-midden-oosten, paywall: false}
+  - {name: AP News, url: "https://feeds.apnews.com/rss/apf-topnews", category: wereld, paywall: false}
+  - {name: Financial Times, url: "https://www.ft.com/world?format=rss", category: wereld-economie, paywall: true}
+  - {name: The Economist, url: "https://www.economist.com/leaders/rss.xml", category: analyse, paywall: true}
+  - {name: The Economist Briefing, url: "https://www.economist.com/briefing/rss.xml", category: analyse, paywall: true}
+  - {name: Foreign Affairs, url: "https://www.foreignaffairs.com/rss.xml", category: geopolitiek-analyse, paywall: true}
+  - {name: Politico Europe, url: "https://www.politico.eu/feed/", category: europa, paywall: false}
+  - {name: South China Morning Post, url: "https://www.scmp.com/rss/91/feed", category: china, paywall: false}
+
+  # --- Opinie: rechts/conservatief ---
+  - {name: The Spectator, url: "https://www.spectator.co.uk/feed", category: opinie-rechts, paywall: true}
+  - {name: National Review, url: "https://www.nationalreview.com/feed/", category: opinie-rechts, paywall: false}
+  - {name: The Dispatch, url: "https://thedispatch.com/feed/", category: opinie-centrumrechts, paywall: false}
+  - {name: UnHerd, url: "https://unherd.com/feed/", category: opinie-heterodox, paywall: false}
+  # --- Opinie: links/progressief ---
+  - {name: Vox, url: "https://www.vox.com/rss/index.xml", category: uitleg-progressief, paywall: false}
+  - {name: The Atlantic, url: "https://www.theatlantic.com/feed/all/", category: opinie-progressief, paywall: true}
+  - {name: Guardian Opinion, url: "https://www.theguardian.com/commentisfree/rss", category: opinie-progressief, paywall: false}
+
+  # --- Wetenschap en gezondheid ---
+  - {name: Nature, url: "https://www.nature.com/nature.rss", category: wetenschap, paywall: false}
+  - {name: ScienceDaily, url: "https://www.sciencedaily.com/rss/top/science.xml", category: wetenschap, paywall: false}
+  - {name: ScienceDaily Health, url: "https://www.sciencedaily.com/rss/top/health.xml", category: gezondheid, paywall: false}
+  - {name: EurekAlert, url: "https://www.eurekalert.org/rss.xml", category: wetenschap, paywall: false}
+  - {name: Guardian Science, url: "https://www.theguardian.com/science/rss", category: wetenschap, paywall: false}
+  - {name: NU.nl Wetenschap, url: "https://www.nu.nl/rss/Wetenschap", category: wetenschap, paywall: false}
+
+  # --- Economie, klimaat, tech ---
+  - {name: Our World in Data, url: "https://ourworldindata.org/atom.xml", category: data-analyse, paywall: false}
+  - {name: Carbon Brief, url: "https://www.carbonbrief.org/feed/", category: klimaat, paywall: false}
+  - {name: Guardian Environment, url: "https://www.theguardian.com/environment/rss", category: klimaat, paywall: false}
+  - {name: Guardian Technology, url: "https://www.theguardian.com/technology/rss", category: tech, paywall: false}
+
+  # --- Sport ---
+  - {name: NOS Sport, url: "https://feeds.nos.nl/nossportalgemeen", category: sport, paywall: false}
+  - {name: NOS Wielrennen, url: "https://feeds.nos.nl/nossportwielrennen", category: wielrennen, paywall: false}
+  - {name: NOS Schaatsen, url: "https://feeds.nos.nl/nossportschaatsen", category: schaatsen, paywall: false}
+  - {name: Cyclingnews, url: "https://www.cyclingnews.com/feeds.xml", category: wielrennen, paywall: false}
+  - {name: WielerFlits, url: "https://www.wielerflits.nl/feed/", category: wielrennen, paywall: false}
+  - {name: The Inner Ring, url: "https://inrng.com/feed/", category: wielrennen-analyse, paywall: false}
+  - {name: Velo, url: "https://velo.outsideonline.com/feed/", category: wielrennen, paywall: false}
+  - {name: Escape Collective, url: "https://escapecollective.com/feed/", category: wielrennen-analyse, paywall: true}
+  - {name: World Athletics, url: "https://worldathletics.org/rss", category: atletiek, paywall: false}
+  - {name: Atletiekunie, url: "https://www.atletiekunie.nl/feed", category: atletiek, paywall: false}
+  - {name: Runner's World, url: "https://www.runnersworld.com/rss/all.xml/", category: hardlopen, paywall: false}
+  - {name: LetsRun, url: "https://www.letsrun.com/feed/", category: atletiek, paywall: false}
+  - {name: Citius Mag, url: "https://citiusmag.com/feed/", category: atletiek, paywall: false}
+  - {name: Schaatsen.nl, url: "https://www.schaatsen.nl/feed/", category: schaatsen, paywall: false}
+
+  # --- Roddel / entertainment: bewust maar één bron ---
+  - {name: BBC Entertainment, url: "https://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml", category: entertainment, paywall: false, max_items: 15}

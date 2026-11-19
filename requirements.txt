@@ -1,0 +1,4 @@
+anthropic>=2.10,<3
+feedparser>=6.0,<7
+PyYAML>=6.0,<7
+requests>=2.31,<3

@@ -1,0 +1,41 @@
+# General settings. Secrets (API keys, passwords) never go here: use GitHub Secrets.
+
+email:
+  # Can be overridden with the DIGEST_TO environment variable / GitHub Secret
+  # (handy because this repository is public).
+  to: niek@blikslager.com
+  # With Resend without your own verified domain you must use this sender,
+  # and you can only send to the address you registered Resend with.
+  from: "Nieuwsdigest <onboarding@resend.dev>"
+  # "resend" or "smtp" (e.g. Gmail with an app password)
+  provider: resend
+
+models:
+  # Cheap model: scores every headline. Check current names at
+  # https://docs.claude.com/en/docs/about-claude/models/overview
+  select: claude-haiku-5-5
+  # Stronger model: writes the digest. claude-opus-5-5 is better but ~2x as expensive.
+  compose: claude-sonnet-5-5
+  # low | medium | high : how hard the compose model thinks (more = more tokens)
+  compose_effort: medium
+
+limits:
+  # Hard caps per run, to keep costs predictable
+  max_headlines_to_score: 400     # headlines sent to the cheap model
+  max_items_to_compose: 45        # best-scoring stories passed to the compose model
+  min_score: 5                    # stories below this score (0-10) are dropped
+  max_web_fetches: 3              # full articles the compose model may read
+  select_max_tokens: 8000         # per scoring batch
+  compose_max_tokens: 16000
+
+window:
+  hours: 24          # look back this many hours
+  monday_hours: 72   # on Mondays: include the weekend
+
+schedule:
+  timezone: Europe/Amsterdam
+  send_at: "07:00"           # local time
+  latest_send_hour: 10       # a delayed GitHub run after 10:00 no longer sends
+
+# How many days to remember stories that were already in a digest
+history_days: 14

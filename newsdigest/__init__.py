@@ -1,0 +1,1 @@
+"""Personal daily news digest."""
