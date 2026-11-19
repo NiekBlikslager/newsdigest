@@ -1,4 +1,5 @@
 """Step 4: let a stronger model write the digest from the best stories."""
+import re
 from datetime import datetime
 
 from .render import dutch_date
@@ -62,10 +63,15 @@ Werkwijze:
   bij echt groot nieuws; laat die rubriek anders weg.
 - Per item 1 tot 3 zinnen in eigen woorden. Geen citaten langer dan een paar woorden.
   Voeg waar het helpt één zin "waarom dit ertoe doet" toe.
-- Bij omstreden politieke of geopolitieke kwesties vul je "perspectives" in: de sterkste
-  progressieve en de sterkste conservatieve lezing (eerlijk, geen stroman, geen kunstmatige
-  balans), en waar de feiten het over eens zijn. Bij niet-omstreden items laat je dit leeg.
-  Gebruik je eigen kennis van de gangbare posities alleen als je zeker bent; verzin geen citaten.
+- "perspectives" vul je ALLEEN in bij kwesties waar links en rechts echt verschillend over
+  denken (beleid, ideologie, geopolitieke strategie): de sterkste progressieve en de sterkste
+  conservatieve lezing, eerlijk, zonder stroman, en waar de feiten het over eens zijn.
+  Bij uitspraken, rampen, wetenschappelijke resultaten of verhalen waar vrijwel iedereen
+  hetzelfde over denkt laat je het leeg: geen kunstmatige balans. Meestal geldt dit voor
+  hooguit 2 tot 4 items per digest.
+  Schrijf een standpunt alleen toe aan een genoemde krant of commentator als dat blijkt uit
+  de kandidaten of een gelezen artikel; anders beschrijf je de gangbare positie in het
+  algemeen ("conservatieve commentatoren wijzen erop dat..."). Verzin geen citaten.
 - Opiniestukken markeer je met is_opinion = true.
 - Rubrieken: gebruik uitsluitend deze namen, laat lege rubrieken weg: {sections}.
   "Het roddelverhaal van de dag" bevat maximaal één item, en alleen als er iets groots speelt.
@@ -77,6 +83,9 @@ Werkwijze:
   lezen als dat echt nodig is voor nuance of context. Verwerk dat in eigen woorden.
 - Verhalen die al in een recente digest stonden, neem je alleen op bij een belangrijke
   nieuwe ontwikkeling (en zeg dan wat er nieuw is).
+- "intro": hooguit één korte zin over de rode draad van vandaag, zonder datum. Mag leeg.
+- Link-labels: alleen de naam van de bron (eventueel met een paar woorden, zoals
+  "Guardian: analyse"). Zet er zelf geen betaalmuur-aanduiding in; dat doet de opmaak.
 - Als er echt niets relevants is, geef dan een lege lijst sections.
 
 # Profiel van de lezer
@@ -164,6 +173,8 @@ def clean_digest(digest: Digest, groups: list[dict]) -> Digest:
         items = [i for s in digest.sections if s.name == name for i in s.items]
         for item in items:
             item.links = [l for l in item.links if l.url in known]
+            for l in item.links:  # the renderer adds "(betaalmuur)" itself
+                l.label = re.sub(r"\s*[\[(]betaalmuur[\])]", "", l.label, flags=re.I).strip()
         items = [i for i in items if i.links]
         if name == SECTIONS[-1]:
             items = items[:1]
