@@ -1,0 +1,256 @@
+{
+ "date": "2026-11-19",
+ "digest": {
+  "intro": "Een historische top tussen Trump, Poetin en Xi domineert de dag, naast een mijlpaal voor het internationaal recht.",
+  "sections": [
+   {
+    "name": "Wereld",
+    "items": [
+     {
+      "headline": "Trump, Poetin en Xi komen voor het eerst samen in Shenzhen",
+      "summary": "De leiders van de drie grootste kernmachten spraken elkaar tijdens de Apec-top en publiceerden een vredesverklaring. Daarin staan hervorming van de VN, meer olieaanbod en bescherming van diplomatieke onschendbaarheid, maar de oorlogen in Oekraïne en Iran worden niet genoemd.",
+      "why_it_matters": "Dat deze drie machten samen aan tafel zitten, kan een precedent scheppen. Europa zit er niet bij.",
+      "perspectives": {
+       "progressive": "Progressieve commentatoren zien vooral een verzwakt westers bondgenootschap. Ze vinden dat Europa moet reageren met meer eigen diplomatie en samenwerking, en vrezen een nieuwe Jalta waarin kleinere landen buitenspel staan.",
+       "conservative": "Conservatieve commentatoren, zoals The Economist in zijn hoofdartikel, waarschuwen voor verdere samenwerking tussen vijandige machten als China, Rusland, Iran en Noord-Korea. Volgens hen moet het Westen daar harder en eensgezinder tegenover staan.",
+       "agreed_facts": "De top vond plaats in Shenzhen en was de eerste keer dat de drie presidenten samen overlegden. De verklaring noemt Oekraïne en Iran niet, en er zijn geen grote concrete besluiten genomen."
+      },
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://www.bbc.co.uk/news/articles/c623j4ln97x7o?at_medium=RSS&at_campaign=rss",
+        "label": "BBC News"
+       },
+       {
+        "url": "https://www.theguardian.com/world/2026/nov/19/china-russia-us-agree-peace-statement-no-mention-ukraine-iran-wars",
+        "label": "Guardian"
+       },
+       {
+        "url": "https://nos.nl/l/2640086",
+        "label": "NOS: voorbeschouwing"
+       },
+       {
+        "url": "https://www.scmp.com/news/china/diplomacy/article/3375112/handshakes-hugs-and-subtle-power-plays-decoding-xi-trump-putin-dynamic-shenzhen",
+        "label": "SCMP: analyse"
+       },
+       {
+        "url": "https://www.nrc.nl/nieuws/2026/11/19/ook-zonder-grote-beslissingen-is-het-gesprek-van-xi-poetin-en-trump-nadelig-voor-europa-a4941855",
+        "label": "NRC"
+       }
+      ],
+      "source_ids": []
+     },
+     {
+      "headline": "Internationaal Gerechtshof: Myanmar schuldig aan genocide op de Rohingya",
+      "summary": "Het ICJ oordeelde voor het eerst dat een staat zich schuldig heeft gemaakt aan genocide. De uitspraak was niet unaniem en beroep is niet mogelijk. Rohingya in kampen in Bangladesh reageren hoopvol.",
+      "why_it_matters": "De uitspraak kan een belangrijk precedent scheppen voor toekomstige genocidezaken.",
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://nos.nl/l/2640179",
+        "label": "NOS"
+       },
+       {
+        "url": "https://www.aljazeera.com/news/2026/11/19/what-the-icj-ruling-means-for-the-rohingya?traffic_source=rss",
+        "label": "Al Jazeera"
+       },
+       {
+        "url": "https://www.nrc.nl/nieuws/2026/11/19/wereldwijd-is-meegekeken-naar-het-vonnis-van-de-vijftien-rechters-want-de-historische-genocide-uitspraak-over-de-rohinya-kan-belangrijk-precedent-scheppen-a4941755",
+        "label": "NRC"
+       }
+      ],
+      "source_ids": []
+     },
+     {
+      "headline": "Hoe China Amerikaanse exportregels voor chips blijft omzeilen",
+      "summary": "The Economist beschrijft hoe China de Amerikaanse beperkingen op technologie-export ontwijkt. Tegelijk bouwt het land een eigen chipindustrie op om die regels overbodig te maken.",
+      "why_it_matters": null,
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://www.economist.com/briefing/2026/11/19/how-china-continues-to-evade-americas-tech-export-rules",
+        "label": "The Economist"
+       }
+      ],
+      "source_ids": []
+     }
+    ]
+   },
+   {
+    "name": "Economie, wonen en klimaat",
+    "items": [
+     {
+      "headline": "Waarom Nederlanders somber blijven ondanks groeiende welvaart",
+      "summary": "Het inkomen groeit en de werkloosheid is laag, maar consumentenvertrouwen en gevoelde welvaart blijven laag. ESB-artikelen wijzen op een kloof tussen cijfers en perceptie, onder meer door een gevoel van relatieve verarming.",
+      "why_it_matters": null,
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://esb.nu/materiele-welvaartsgroei-kan-vertrouwen-niet-herstellen/",
+        "label": "ESB"
+       },
+       {
+        "url": "https://esb.nu/cijfers-over-betaalbaarheid-wijken-sterk-af-van-perceptie/",
+        "label": "ESB: betaalbaarheid"
+       }
+      ],
+      "source_ids": []
+     },
+     {
+      "headline": "Fiscaal voordeel voor kopers zou huurcrisis mede verklaren",
+      "summary": "Volgens Follow the Money verdwenen in twee jaar 70 duizend woningen uit de private huursector. De schuld wordt vaak bij de Wet betaalbare huur gelegd, maar de ongelijke fiscale behandeling van kopen en huren blijft buiten beeld.",
+      "why_it_matters": null,
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://www.ftm.nl/artikelen/analyse-vrije-huursector-krimpt-door-fiscale-bevoordeling-koopwoningen",
+        "label": "Follow the Money"
+       }
+      ],
+      "source_ids": []
+     },
+     {
+      "headline": "IEA: energiemarkt wordt na de crisis niet meer wat hij was",
+      "summary": "Volgens het jaarlijkse IEA-rapport laat de energiecrisis door de oorlog tussen de VS en Iran blijvende sporen na. Een ander IEA-rapport verwacht dat datacentra tegen 2030 zo'n 70% meer CO2 uitstoten, doordat de VS en China voor AI op fossiele energie leunen.",
+      "why_it_matters": null,
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://nos.nl/l/2640150",
+        "label": "NOS"
+       },
+       {
+        "url": "https://www.theguardian.com/world/2026/nov/19/datacentres-to-create-70-more-carbon-emissions-by-2030-iea-report-warns",
+        "label": "Guardian"
+       }
+      ],
+      "source_ids": []
+     }
+    ]
+   },
+   {
+    "name": "Wetenschap en gezondheid",
+    "items": [
+     {
+      "headline": "Nieuwe ouderen hebben een beter geheugen dan hun ouders",
+      "summary": "Uit een studie onder 219.000 volwassenen blijkt dat ouderen van nu hun geheugen langer behouden dan eerdere generaties.",
+      "why_it_matters": null,
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://www.nature.com/articles/d41586-026-03783-9",
+        "label": "Nature"
+       }
+      ],
+      "source_ids": []
+     },
+     {
+      "headline": "Rockström: uitstel van IPCC-rapport bedreigt klimaatsamenwerking",
+      "summary": "Klimaatwetenschapper Johan Rockström zegt dat het vertragen van wetenschappelijke rapporten de internationale samenwerking onder het Parijsakkoord in gevaar brengt.",
+      "why_it_matters": null,
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://www.theguardian.com/science/2026/nov/19/ipcc-report-delay-climate-crisis-scientist",
+        "label": "Guardian"
+       }
+      ],
+      "source_ids": []
+     }
+    ]
+   },
+   {
+    "name": "Sport",
+    "items": [
+     {
+      "headline": "Marathonkampioene Jepchirchir drie jaar geschorst voor epo",
+      "summary": "De Keniaanse olympisch en wereldkampioene heeft het gebruik toegegeven en verliest haar titel en resultaten uit onder meer Sydney. Een andere Keniaanse dopingzaak leidt ertoe dat het Amerikaanse team het WK-halve marathon-goud krijgt.",
+      "why_it_matters": null,
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://www.theguardian.com/sport/2026/nov/19/peres-jepchirchir-world-marathon-champion-banned-three-years-doping",
+        "label": "Guardian"
+       },
+       {
+        "url": "https://nos.nl/l/2640109",
+        "label": "NOS"
+       },
+       {
+        "url": "https://athleticsweekly.com/news/peres-jepchirchir-banned-for-three-years-for-epo-use-1040014155/",
+        "label": "Athletics Weekly"
+       },
+       {
+        "url": "https://www.letsrun.com/news/2026/11/team-usa-women-set-to-be-upgraded-to-gold-at-world-half-after-kenyan-epo-bust/",
+        "label": "LetsRun"
+       }
+      ],
+      "source_ids": []
+     },
+     {
+      "headline": "24 wielerploegen richten Collective Cycling Group op",
+      "summary": "De ploegen willen met een nieuw gezamenlijk initiatief extra inkomsten voor de wielersport losmaken. Het volgt op het gestrande One Cycling.",
+      "why_it_matters": null,
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://www.cyclingnews.com/pro-cycling/racing/24-teams-come-together-to-form-collective-cycling-group-the-latest-venture-aiming-to-unlock-the-value-of-pro-cycling/",
+        "label": "Cyclingnews"
+       },
+       {
+        "url": "https://velo.outsideonline.com/road/road-racing/one-cycling-stalled-now-24-teams-are-making-a-new-money-move/",
+        "label": "Velo"
+       }
+      ],
+      "source_ids": []
+     }
+    ]
+   },
+   {
+    "name": "Tech",
+    "items": [
+     {
+      "headline": "Anthropic maakt recordbeursgang van $81 miljard",
+      "summary": "Het bedrijf achter Claude haalt bij de grootste beursgang ooit in de VS 81 miljard dollar op. Het aandeel opende rond een derde hoger dan de introductieprijs.",
+      "why_it_matters": "Het IMF waarschuwt dat de AI-vraag wereldwijd de rente kan opdrijven, terwijl er ook zorgen zijn over een zeepbel.",
+      "perspectives": null,
+      "is_opinion": false,
+      "links": [
+       {
+        "url": "https://nos.nl/l/2640176",
+        "label": "NOS"
+       },
+       {
+        "url": "https://www.theguardian.com/technology/2026/nov/19/anthropic-public-trading-ipo",
+        "label": "Guardian"
+       },
+       {
+        "url": "https://www.theguardian.com/world/2026/nov/19/imf-head-warns-ai-demand-push-up-interest-rates-apec",
+        "label": "Guardian: IMF over rente"
+       }
+      ],
+      "source_ids": []
+     }
+    ]
+   }
+  ]
+ },
+ "paywalled": [
+  "https://www.nrc.nl/nieuws/2026/11/19/ook-zonder-grote-beslissingen-is-het-gesprek-van-xi-poetin-en-trump-nadelig-voor-europa-a4941855",
+  "https://www.nrc.nl/nieuws/2026/11/19/wereldwijd-is-meegekeken-naar-het-vonnis-van-de-vijftien-rechters-want-de-historische-genocide-uitspraak-over-de-rohinya-kan-belangrijk-precedent-scheppen-a4941755",
+  "https://www.economist.com/briefing/2026/11/19/how-china-continues-to-evade-americas-tech-export-rules",
+  "https://esb.nu/materiele-welvaartsgroei-kan-vertrouwen-niet-herstellen/",
+  "https://esb.nu/cijfers-over-betaalbaarheid-wijken-sterk-af-van-perceptie/",
+  "https://www.ftm.nl/artikelen/analyse-vrije-huursector-krimpt-door-fiscale-bevoordeling-koopwoningen"
+ ],
+ "footer": ""
+}

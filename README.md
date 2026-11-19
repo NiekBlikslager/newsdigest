@@ -1,6 +1,6 @@
 # Persoonlijke nieuwsdigest
 
-Elke ochtend om 07:00 (Amsterdamse tijd) een korte, rustige nieuwsmail: grotere verhalen,
+Elke ochtend rond 06:45 (Amsterdamse tijd) een rustige nieuwsmail: grotere verhalen,
 onderzoek en achtergrond in plaats van een nieuwsticker. Volledig geautomatiseerd met
 GitHub Actions, de Claude API en Resend.
 
@@ -9,7 +9,7 @@ GitHub Actions, de Claude API en Resend.
 ```
 RSS-feeds ──> verzamelen ──> ontdubbelen ──> scoren ──> samenstellen ──> mail
 (config/      (laatste 24u,  (zelfde verhaal  (Claude Haiku:  (Claude Sonnet:   (Resend)
- sources.yaml) ma: 72u)       = één groep;     elke kop 0-10   8-14 items,
+ sources.yaml) ma: 72u)       = één groep;     elke kop 0-10   8-12 items,
                               al verstuurd     t.o.v. je       Nederlands,
                               = weg)           profiel)        met bronnen)
 ```
@@ -30,8 +30,8 @@ RSS-feeds ──> verzamelen ──> ontdubbelen ──> scoren ──> samenste
 | `.github/workflows/check-feeds.yml` | Controleert of alle feeds nog werken. |
 
 **Kosten.** Het scoren van ~300 koppen met Claude Haiku kost minder dan een cent. Het
-samenstellen met Claude Sonnet kost naar schatting 5 à 15 cent per dag, dus **ongeveer
-€2-4 per maand**. Wil je betere teksten, zet dan in `settings.yaml` `compose: claude-opus-5-5`
+samenstellen met Claude Sonnet kost naar schatting 8 à 15 cent per dag, dus **ongeveer
+€3-4 per maand** (gemeten: ongeveer $0,10 per run met korte items; met alinea's iets meer). Wil je betere teksten, zet dan in `settings.yaml` `compose: claude-opus-5-5`
 (ongeveer twee keer zo duur). Harde limieten per run staan onder `limits:`.
 
 ---
@@ -89,6 +89,9 @@ Sleutels komen nooit in de code of in de repository.
    zip-bestand en open `digest.html` in je browser. Er wordt niets gemaild.
 3. Tevreden? Draai hem nog een keer met mode **test**: je krijgt één echte mail met
    `[TEST]` in het onderwerp.
+   *Gratis alternatief:* een dry-run bewaart ook `digest.json`. Zet dat bestand in de map
+   `samples/` van de repo en kies mode **send-saved** met dat pad: dan wordt precies die
+   digest gemaild, zonder nieuwe Claude-kosten. Handig om alleen de opmaak te testen.
 4. Klaar. Vanaf nu draait het schema elke ochtend vanzelf.
 
 Werkt het opslaan van de status niet (fout bij *Save state*)? Zet dan onder
@@ -97,10 +100,11 @@ Werkt het opslaan van de status niet (fout bij *Save state*)? Zet dan onder
 ### Over het tijdstip
 
 GitHub rekent in UTC en kent geen zomer- of wintertijd. Daarom staan er twee schema's
-(04:45 en 05:45 UTC). Het script kijkt zelf hoe laat het in Amsterdam is:
+(04:40 en 05:40 UTC). Het script kijkt zelf hoe laat het in Amsterdam is:
 
-- vóór 06:15 → overslaan (dat is de run die in de wintertijd een uur te vroeg is);
-- tussen 06:15 en 07:00 → digest maken en **wachten tot 07:00** met versturen;
+- vóór 06:10 → overslaan (dat is de run die in de wintertijd een uur te vroeg is);
+- vanaf 06:10 → digest maken en **meteen versturen** zodra hij klaar is (een paar minuten,
+  dus meestal rond 06:45);
 - al verstuurd vandaag → overslaan (geen dubbele mails);
 - na 10:00 → niet meer versturen.
 
@@ -148,7 +152,8 @@ ANTHROPIC_API_KEY=sk-ant-... python -m newsdigest --dry-run
 
 `--collect-only` haalt alleen feeds op en toont de gegroepeerde verhalen (geen API-sleutel
 nodig). `--dry-run` maakt de volledige digest in `output/digest.html` zonder te mailen.
-`--test` stuurt één echte testmail.
+`--test` stuurt één echte testmail. `--send-saved output/digest.json` mailt een bewaarde
+digest opnieuw, zonder API-kosten.
 
 ## Later uitbreiden: feedback
 

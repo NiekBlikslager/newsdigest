@@ -31,7 +31,7 @@ Voorbeeld: "Er is een verkeersongeluk gebeurd" = niet opnemen. "Nieuw onderzoek:
 - Cultuur en geschiedenis: alleen verhalen over grote, bekende gebeurtenissen (achtergronden, terugblikken, jubilea van historische momenten).
 - Opiniestukken: toegestaan als ze aansluiten op bovenstaande onderwerpen en goed beargumenteerd zijn. Geef duidelijk aan dat het opinie is.
 - Grotere gebeurtenissen in Den Haag of de stad Groningen.
-- Per dag **één** groot roddel- of entertainmentverhaal, in een eigen rubriek aan het einde. Alleen als er echt iets groots speelt, anders weglaten.
+- Per dag **altijd precies één** roddel- of entertainmentverhaal, in een eigen rubriek aan het einde. Kies het grootste of interessantste verhaal van de dag.
 
 ## Niet opnemen
 
@@ -45,8 +45,8 @@ Voorbeeld: "Er is een verkeersongeluk gebeurd" = niet opnemen. "Nieuw onderzoek:
 ## Vorm van de digest
 
 - Taal: Nederlands, ook als de bron Engels is.
-- Kort en scanbaar, ongeveer 5 minuten leestijd: ongeveer 8 tot 14 items in totaal, nooit een muur van tekst.
-- Per item 1 tot 3 zinnen in eigen woorden. Geen letterlijke citaten van meer dan een paar woorden.
+- Scanbaar, ongeveer 8 tot 10 minuten leestijd: ongeveer 8 tot 12 items in totaal.
+- Per item één alinea van ongeveer 4 tot 6 zinnen in eigen woorden, met genoeg context om het verhaal te begrijpen zonder door te klikken. Geen letterlijke citaten van meer dan een paar woorden.
 - Waar relevant 1 zin over waarom iets ertoe doet of hoe het in een groter geheel past.
 - Bij omstreden politieke of geopolitieke kwesties: vat kort samen wat links/progressieve en rechts/conservatieve commentatoren zeggen, en waar de feiten het over eens zijn.
 - Opinie altijd als opinie markeren.

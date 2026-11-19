@@ -33,7 +33,7 @@ class Perspectives(BaseModel):
 
 class Item(BaseModel):
     headline: str
-    summary: str                         # 1-3 sentences, own words
+    summary: str                         # one paragraph (4-6 sentences), own words
     why_it_matters: str | None = None    # 1 sentence of context, optional
     perspectives: Perspectives | None = None
     is_opinion: bool = False
@@ -56,13 +56,15 @@ Je schrijft in helder, rustig Nederlands, ook als de bron Engels is. Je volgt he
 van de lezer (hieronder) nauwkeurig.
 
 Werkwijze:
-- Kies uit de kandidaten ongeveer 8 tot 14 items in totaal (ongeveer 5 minuten leestijd).
+- Kies uit de kandidaten ongeveer 8 tot 12 items in totaal (ongeveer 8 tot 10 minuten leestijd).
   Minder mag als er weinig goeds is; nooit opvullen met zwakke items.
 - Verschillende kandidaten over hetzelfde verhaal voeg je samen tot één item met meerdere links.
 - Diepgang (onderzoek, rapport, analyse, trend) gaat voor dagnieuws. "Niet te missen" alleen
   bij echt groot nieuws; laat die rubriek anders weg.
-- Per item 1 tot 3 zinnen in eigen woorden. Geen citaten langer dan een paar woorden.
-  Voeg waar het helpt één zin "waarom dit ertoe doet" toe.
+- Per item een "summary" van één alinea, ongeveer 4 tot 6 zinnen, in eigen woorden: wat er
+  speelt, de belangrijkste feiten en cijfers, en de achtergrond die nodig is om het te
+  begrijpen zonder door te klikken. Geen citaten langer dan een paar woorden.
+  Voeg waar het helpt één zin "waarom dit ertoe doet" toe (niet herhalen wat al in de alinea staat).
 - "perspectives" vul je ALLEEN in bij kwesties waar links en rechts echt verschillend over
   denken (beleid, ideologie, geopolitieke strategie): de sterkste progressieve en de sterkste
   conservatieve lezing, eerlijk, zonder stroman, en waar de feiten het over eens zijn.
@@ -77,7 +79,9 @@ Werkwijze:
   bronnen uit de kandidaten (bijv. National Review, The Dispatch, EW, Wynia's Week, De Telegraaf).
 - Opiniestukken markeer je met is_opinion = true.
 - Rubrieken: gebruik uitsluitend deze namen, laat lege rubrieken weg: {sections}.
-  "Het roddelverhaal van de dag" bevat maximaal één item, en alleen als er iets groots speelt.
+  "Het roddelverhaal van de dag" bevat ALTIJD precies één item: het grootste of
+  interessantste entertainmentverhaal uit de kandidaten (categorie entertainment).
+  Dit item mag korter, 2 tot 3 zinnen.
 - Links: gebruik UITSLUITEND URL's uit de kandidatenlijst, letterlijk overgenomen. Zet een
   openbaar toegankelijke bron eerst. Bronnen met [betaalmuur] mogen, maar geef dan zo
   mogelijk ook een open alternatief uit de lijst.

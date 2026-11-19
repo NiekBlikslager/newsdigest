@@ -3,18 +3,21 @@ name: Daily digest
 on:
   schedule:
     # GitHub cron is in UTC and ignores daylight saving time. Two runs:
-    # 04:45 UTC = 06:45 summer time, 05:45 UTC = 06:45 winter time.
-    # The script skips the run that is too early, waits until 07:00 to send,
-    # and never sends twice on the same day.
-    - cron: "45 4 * * *"
-    - cron: "45 5 * * *"
+    # 04:40 UTC = 06:40 summer time, 05:40 UTC = 06:40 winter time.
+    # The script skips the run that is too early, sends as soon as the digest
+    # is ready (a few minutes, so around 06:45) and never sends twice a day.
+    - cron: "40 4 * * *"
+    - cron: "40 5 * * *"
   workflow_dispatch:
     inputs:
       mode:
-        description: "dry-run = no mail (download the result under Artifacts), test = one real [TEST] mail"
+        description: "dry-run = no mail (result under Artifacts), test = one real [TEST] mail, send-saved = mail a saved digest without API calls"
         type: choice
-        options: [dry-run, test, collect-only]
+        options: [dry-run, test, send-saved, collect-only]
         default: dry-run
+      saved_file:
+        description: "For send-saved: path to a saved digest.json in the repository"
+        default: "samples/digest-2026-11-19.json"
 
 permissions:
   contents: write   # to commit state/state.json
@@ -43,7 +46,9 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ inputs.mode }}" = "send-saved" ]; then
+            python -m newsdigest --send-saved "${{ inputs.saved_file }}"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             python -m newsdigest --${{ inputs.mode }}
           else
             python -m newsdigest

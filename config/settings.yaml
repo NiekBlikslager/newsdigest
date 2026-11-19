@@ -26,7 +26,7 @@ limits:
   min_score: 5                    # stories below this score (0-10) are dropped
   max_web_fetches: 3              # full articles the compose model may read
   select_max_tokens: 8000         # per scoring batch
-  compose_max_tokens: 16000
+  compose_max_tokens: 20000
 
 window:
   hours: 24          # look back this many hours
@@ -34,7 +34,11 @@ window:
 
 schedule:
   timezone: Europe/Amsterdam
-  send_at: "07:00"           # local time
+  # The workflow starts at 06:40 local time (see .github/workflows/digest.yml) and
+  # sends as soon as the digest is ready, usually around 06:45.
+  # Runs that start more than 30 minutes before this time are skipped
+  # (that is the extra cron run that is an hour early in winter time).
+  start_at: "06:40"
   latest_send_hour: 10       # a delayed GitHub run after 10:00 no longer sends
 
 # How many days to remember stories that were already in a digest

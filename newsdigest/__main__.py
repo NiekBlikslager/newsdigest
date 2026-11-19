@@ -3,15 +3,17 @@
     python -m newsdigest --collect-only   # only fetch + group feeds (no API key needed)
     python -m newsdigest --dry-run        # full run, write output/digest.html, no mail
     python -m newsdigest --test           # full run, send one real mail marked [TEST]
+    python -m newsdigest --send-saved output/digest.json   # re-mail a saved dry-run, no API calls
     python -m newsdigest                  # scheduled run (used by GitHub Actions)
 """
 import argparse
+import json
 import os
 import sys
-import time
 import traceback
 from datetime import datetime, timedelta
 from itertools import zip_longest
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import anthropic
@@ -39,23 +41,41 @@ def check_schedule(settings: dict, state: dict, now: datetime) -> str | None:
     """Return a reason to skip this scheduled run, or None to go ahead."""
     if state.get("last_sent_date") == now.date().isoformat():
         return "digest already sent today"
-    hh, mm = map(int, settings["schedule"]["send_at"].split(":"))
-    send_at = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
-    if now < send_at - timedelta(minutes=45):
-        return f"too early ({now:%H:%M}, digest is sent at {send_at:%H:%M})"
+    hh, mm = map(int, settings["schedule"]["start_at"].split(":"))
+    start_at = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
+    if now < start_at - timedelta(minutes=30):
+        return f"too early ({now:%H:%M}, the digest run starts at {start_at:%H:%M})"
     if now.hour >= settings["schedule"].get("latest_send_hour", 10):
         return f"too late ({now:%H:%M})"
     return None
 
 
-def wait_until_send_time(settings: dict, tz: ZoneInfo) -> None:
-    hh, mm = map(int, settings["schedule"]["send_at"].split(":"))
-    now = datetime.now(tz)
-    send_at = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
-    if now < send_at:
-        seconds = (send_at - now).total_seconds()
-        print(f"Waiting {seconds / 60:.0f} min until {send_at:%H:%M} to send.")
-        time.sleep(seconds)
+def add_entertainment(best: list[dict], groups: list[dict], scores: dict, n: int = 3) -> list[dict]:
+    """Make sure the compose model always has a few entertainment stories to choose from,
+    even if they scored low (the profile asks for exactly one every day)."""
+    have = {g["id"] for g in best}
+    fun = sorted((g for g in groups if g["category"] == "entertainment" and g["id"] in scores
+                  and g["id"] not in have),
+                 key=lambda g: scores[g["id"]].score, reverse=True)
+    already = sum(1 for g in best if g["category"] == "entertainment")
+    return best + fun[: max(0, n - already)]
+
+
+def send_saved(path: str) -> int:
+    """Re-send a saved digest (output/digest.json from a dry-run) as a [TEST] mail.
+    Makes no Claude API calls, so it costs nothing."""
+    from .compose import Digest
+    settings = load_settings()
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    digest = Digest.model_validate(data["digest"])
+    day = datetime.fromisoformat(data["date"])
+    paywalled = set(data.get("paywalled", []))
+    html = render.render_html(digest, day, paywalled, data.get("footer", ""))
+    text = render.render_text(digest, day, paywalled, data.get("footer", ""))
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    (OUTPUT_DIR / "digest.html").write_text(html, encoding="utf-8")
+    send_mail(settings, render.subject(day, test=True), html, text)
+    return 0
 
 
 def run(mode: str) -> int:
@@ -105,6 +125,7 @@ def run(mode: str) -> int:
     best = sorted((g for g in groups if g["id"] in scores and scores[g["id"]].score >= limits["min_score"]),
                   key=lambda g: scores[g["id"]].score, reverse=True)[: limits["max_items_to_compose"]]
     print(f"{len(best)} stories scored >= {limits['min_score']}.")
+    best = add_entertainment(best, groups, scores)
 
     footer = f"Samengesteld uit {len(groups)} verhalen uit {len(sources) - len(failed)} bronnen."
     if failed:
@@ -118,12 +139,12 @@ def run(mode: str) -> int:
         digest, usage = compose_digest(client, best, scores, profile, recent, settings, now)
         print(f"  compose usage: {usage}")
 
+    paywalled = {it["link"] for g in best for it in [g, *g["others"]] if it["paywall"]}
     if digest is None or not digest.sections:
         html, text = render.render_simple(
             "Vandaag niets bijzonders",
             "Er was vandaag niets dat goed bij je profiel past. Morgen weer.\n\n" + footer)
     else:
-        paywalled = {it["link"] for g in best for it in [g, *g["others"]] if it["paywall"]}
         html = render.render_html(digest, now, paywalled, footer)
         text = render.render_text(digest, now, paywalled, footer)
 
@@ -132,11 +153,15 @@ def run(mode: str) -> int:
         OUTPUT_DIR.mkdir(exist_ok=True)
         (OUTPUT_DIR / "digest.html").write_text(html, encoding="utf-8")
         (OUTPUT_DIR / "digest.txt").write_text(text, encoding="utf-8")
+        if digest and digest.sections:
+            # Saved so it can be mailed later without new API calls (--send-saved).
+            (OUTPUT_DIR / "digest.json").write_text(json.dumps({
+                "date": now.date().isoformat(), "digest": digest.model_dump(),
+                "paywalled": sorted(paywalled), "footer": footer,
+            }, ensure_ascii=False, indent=1), encoding="utf-8")
         print("\n" + text + f"\n\nWritten to {OUTPUT_DIR / 'digest.html'}")
         return 0
 
-    if mode == "scheduled":
-        wait_until_send_time(settings, tz)
     send_mail(settings, subject, html, text)
     if mode == "scheduled":
         if digest:
@@ -153,7 +178,11 @@ def main() -> None:
     group.add_argument("--dry-run", action="store_true", help="no mail, write output/digest.html")
     group.add_argument("--test", action="store_true", help="send one real [TEST] mail now")
     group.add_argument("--collect-only", action="store_true", help="only fetch and group feeds")
+    group.add_argument("--send-saved", metavar="JSON",
+                       help="mail a saved digest.json as [TEST], without API calls")
     args = parser.parse_args()
+    if args.send_saved:
+        sys.exit(send_saved(args.send_saved))
     mode = ("dry-run" if args.dry_run else "test" if args.test
             else "collect-only" if args.collect_only else "scheduled")
 
