@@ -72,6 +72,9 @@ Werkwijze:
   Schrijf een standpunt alleen toe aan een genoemde krant of commentator als dat blijkt uit
   de kandidaten of een gelezen artikel; anders beschrijf je de gangbare positie in het
   algemeen ("conservatieve commentatoren wijzen erop dat..."). Verzin geen citaten.
+  Plak geen verkeerd etiket op media: The Economist en de Financial Times zijn liberaal/centrum,
+  niet conservatief; gebruik voor de rechtse kant bij voorkeur echt rechtse of conservatieve
+  bronnen uit de kandidaten (bijv. National Review, The Dispatch, EW, Wynia's Week, De Telegraaf).
 - Opiniestukken markeer je met is_opinion = true.
 - Rubrieken: gebruik uitsluitend deze namen, laat lege rubrieken weg: {sections}.
   "Het roddelverhaal van de dag" bevat maximaal één item, en alleen als er iets groots speelt.
