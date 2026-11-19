@@ -10,7 +10,7 @@ import feedparser
 import requests
 
 USER_AGENT = "Mozilla/5.0 (compatible; personal-newsdigest/1.0)"
-TIMEOUT = 20  # seconds per feed
+TIMEOUT = 30  # seconds per feed
 
 
 def clean_text(text: str, max_len: int = 300) -> str:
