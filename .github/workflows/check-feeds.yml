@@ -2,6 +2,11 @@ name: Check feeds
 
 on:
   workflow_dispatch:
+    inputs:
+      urls:
+        description: "Optional: space-separated feed URLs to try (empty = check config/sources.yaml)"
+        required: false
+        default: ""
   push:
     paths: ["config/sources.yaml"]
 
@@ -16,4 +21,4 @@ jobs:
           python-version: "3.12"
           cache: pip
       - run: pip install -r requirements.txt
-      - run: python -m newsdigest.check_feeds
+      - run: python -m newsdigest.check_feeds ${{ inputs.urls }}
