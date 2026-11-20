@@ -2,18 +2,24 @@ name: Daily digest
 
 on:
   schedule:
-    # GitHub cron is in UTC and ignores daylight saving time. Two runs:
-    # 04:40 UTC = 06:40 summer time, 05:40 UTC = 06:40 winter time.
-    # The script skips the run that is too early, sends as soon as the digest
-    # is ready (a few minutes, so around 06:45) and never sends twice a day.
+    # GitHub cron is in UTC and ignores daylight saving time, and GitHub sometimes
+    # skips scheduled runs entirely. So there are several runs every 30 minutes:
+    # 04:40 UTC = 06:40 summer time, 05:40 UTC = 06:40 winter time, the rest are
+    # backups. The script skips runs that are too early, sends as soon as the
+    # digest is ready (around 06:45) and never sends twice on the same day,
+    # so the extra runs only cost a few seconds each.
     - cron: "40 4 * * *"
+    - cron: "10 5 * * *"
     - cron: "40 5 * * *"
+    - cron: "10 6 * * *"
+    - cron: "40 6 * * *"
+    - cron: "10 7 * * *"
   workflow_dispatch:
     inputs:
       mode:
-        description: "dry-run = no mail (result under Artifacts), test = one real [TEST] mail, send-saved = mail a saved digest without API calls"
+        description: "dry-run = no mail (result under Artifacts), test = one real [TEST] mail, now = today's real digest right away (if not sent yet), send-saved = mail a saved digest without API calls"
         type: choice
-        options: [dry-run, test, send-saved, collect-only]
+        options: [dry-run, test, now, send-saved, collect-only]
         default: dry-run
       saved_file:
         description: "For send-saved: path to a saved digest.json in the repository"
@@ -32,6 +38,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main   # always the newest state, also for a queued backup run
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -62,7 +70,7 @@ jobs:
           path: output/
 
       - name: Save state (stories already sent)
-        if: github.event_name == 'schedule'
+        if: github.event_name == 'schedule' || inputs.mode == 'now'
         run: |
           git config user.name "newsdigest-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

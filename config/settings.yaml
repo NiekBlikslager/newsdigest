@@ -36,8 +36,8 @@ schedule:
   timezone: Europe/Amsterdam
   # The workflow starts at 06:40 local time (see .github/workflows/digest.yml) and
   # sends as soon as the digest is ready, usually around 06:45.
-  # Runs that start more than 30 minutes before this time are skipped
-  # (that is the extra cron run that is an hour early in winter time).
+  # Runs that start more than 5 minutes before this time are skipped
+  # (in winter time the 04:40 and 05:10 UTC runs are too early).
   start_at: "06:40"
   latest_send_hour: 10       # a delayed GitHub run after 10:00 no longer sends
 

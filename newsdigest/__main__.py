@@ -43,7 +43,7 @@ def check_schedule(settings: dict, state: dict, now: datetime) -> str | None:
         return "digest already sent today"
     hh, mm = map(int, settings["schedule"]["start_at"].split(":"))
     start_at = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
-    if now < start_at - timedelta(minutes=30):
+    if now < start_at - timedelta(minutes=5):
         return f"too early ({now:%H:%M}, the digest run starts at {start_at:%H:%M})"
     if now.hour >= settings["schedule"].get("latest_send_hour", 10):
         return f"too late ({now:%H:%M})"
@@ -84,6 +84,9 @@ def run(mode: str) -> int:
     now = datetime.now(tz)
     state = load_state()
 
+    if mode == "now" and state.get("last_sent_date") == now.date().isoformat():
+        print("Skipping: digest already sent today.")
+        return 0
     if mode == "scheduled":
         if not os.environ.get("ANTHROPIC_API_KEY"):
             print("Skipping: ANTHROPIC_API_KEY is not set yet (see README).")
@@ -163,7 +166,7 @@ def run(mode: str) -> int:
         return 0
 
     send_mail(settings, subject, html, text)
-    if mode == "scheduled":
+    if mode in ("scheduled", "now"):
         if digest:
             record_digest(state, now.date(), digest, best, settings.get("history_days", 14))
         else:
@@ -177,13 +180,15 @@ def main() -> None:
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--dry-run", action="store_true", help="no mail, write output/digest.html")
     group.add_argument("--test", action="store_true", help="send one real [TEST] mail now")
+    group.add_argument("--now", action="store_true",
+                       help="send today's real digest right away (ignores the time window)")
     group.add_argument("--collect-only", action="store_true", help="only fetch and group feeds")
     group.add_argument("--send-saved", metavar="JSON",
                        help="mail a saved digest.json as [TEST], without API calls")
     args = parser.parse_args()
     if args.send_saved:
         sys.exit(send_saved(args.send_saved))
-    mode = ("dry-run" if args.dry_run else "test" if args.test
+    mode = ("dry-run" if args.dry_run else "test" if args.test else "now" if args.now
             else "collect-only" if args.collect_only else "scheduled")
 
     try:
@@ -191,7 +196,7 @@ def main() -> None:
     except Exception:
         error = traceback.format_exc()
         print(error, file=sys.stderr)
-        if mode in ("scheduled", "test"):
+        if mode in ("scheduled", "test", "now"):
             try:
                 html, text = render.render_simple("Nieuwsdigest mislukt", error)
                 send_mail(load_settings(), "Nieuwsdigest: run mislukt", html, text)

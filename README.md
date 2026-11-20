@@ -99,17 +99,20 @@ Werkt het opslaan van de status niet (fout bij *Save state*)? Zet dan onder
 
 ### Over het tijdstip
 
-GitHub rekent in UTC en kent geen zomer- of wintertijd. Daarom staan er twee schema's
-(04:40 en 05:40 UTC). Het script kijkt zelf hoe laat het in Amsterdam is:
+GitHub rekent in UTC en kent geen zomer- of wintertijd, en **slaat geplande runs soms
+helemaal over**. Daarom start de workflow elk half uur tussen 04:40 en 07:10 UTC. Het
+script kijkt zelf hoe laat het in Amsterdam is:
 
-- vóór 06:10 → overslaan (dat is de run die in de wintertijd een uur te vroeg is);
-- vanaf 06:10 → digest maken en **meteen versturen** zodra hij klaar is (een paar minuten,
-  dus meestal rond 06:45);
+- vóór 06:35 → overslaan (in de wintertijd zijn de eerste runs een uur te vroeg);
+- vanaf 06:35 → digest maken en **meteen versturen** zodra hij klaar is (een paar minuten,
+  dus meestal rond 06:45). Valt die run uit, dan pakt een volgende run het een half uur
+  later op;
 - al verstuurd vandaag → overslaan (geen dubbele mails);
 - na 10:00 → niet meer versturen.
 
-GitHub start geplande runs soms een paar minuten (zelden langer) te laat; dan komt de mail
-iets later.
+Een overgeslagen run kost alleen een paar seconden gratis GitHub-tijd. Is er toch niets
+gekomen? Start dan *Daily digest* met mode **now**: dat stuurt de echte digest van vandaag
+meteen (en niet nog een keer als hij al verstuurd is).
 
 **Let op:** GitHub zet geplande workflows uit als een openbare repo 60 dagen geen activiteit
 heeft. Omdat het script elke dag `state/state.json` terugschrijft, gebeurt dat hier niet.
