@@ -117,6 +117,43 @@ meteen (en niet nog een keer als hij al verstuurd is).
 **Let op:** GitHub zet geplande workflows uit als een openbare repo 60 dagen geen activiteit
 heeft. Omdat het script elke dag `state/state.json` terugschrijft, gebeurt dat hier niet.
 
+### Betrouwbaar op tijd: externe wekker (aanbevolen)
+
+De ingebouwde planner van GitHub is onbetrouwbaar: geplande runs komen soms uren te laat
+of helemaal niet. Daarom start een gratis externe dienst de workflow elke ochtend precies
+op tijd. De GitHub-schema's blijven als reserve staan.
+
+**a. Token aanmaken bij GitHub** (alleen recht om workflows in deze repo te starten)
+
+1. GitHub → je profielfoto → **Settings → Developer settings → Personal access tokens →
+   Fine-grained tokens → Generate new token**.
+2. Naam: `newsdigest-wekker`. Expiration: zo lang mogelijk (zet een herinnering in je agenda).
+3. Repository access: **Only select repositories** → `newsdigest`.
+4. Permissions → Repository permissions → **Actions: Read and write**. Verder niets.
+5. *Generate token* en kopieer hem (`github_pat_...`).
+
+Met dit token kan iemand alleen workflows in deze repo starten of stoppen. Je secrets
+kan hij niet lezen.
+
+**b. Wekker instellen op <https://cron-job.org>** (gratis account)
+
+1. *Create cronjob*.
+2. URL: `https://api.github.com/repos/NiekBlikslager/newsdigest/actions/workflows/digest.yml/dispatches`
+3. Execution schedule: elke dag om **06:40**, tijdzone **Europe/Amsterdam** (cron-job.org
+   regelt zomer- en wintertijd zelf).
+4. Tabblad *Advanced*:
+   - Request method: **POST**
+   - Headers:
+     - `Authorization` = `Bearer github_pat_...` (je token)
+     - `Accept` = `application/vnd.github+json`
+     - `Content-Type` = `application/json`
+   - Request body: `{"ref":"main","inputs":{"mode":"now"}}`
+5. Opslaan en eventueel *Test run*: GitHub antwoordt met status **204** als het gelukt is.
+   Let op: een test run verstuurt echt de digest van vandaag (als die nog niet verstuurd is).
+
+Mode `now` verstuurt de digest direct en slaat over als hij die dag al verstuurd is, dus
+de wekker en de reserve-runs van GitHub zitten elkaar niet in de weg.
+
 ### Als er iets misgaat
 
 - Een feed die faalt, wordt overgeslagen en onderaan de mail genoemd.
